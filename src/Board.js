@@ -113,11 +113,39 @@
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
+      /*
+      loop through rows
+
+      if row[colIndex] == 1, queens += 1   [ 0 1 2 ]   get this row, look at column index
+                                          [  0 1 2 ]    then get this one, look at column index
+      */
+      var rows = this.rows();
+      var queens = 0;
+      for(var i=0; i<rows.length; i++) {
+        if(rows[i][colIndex] === 1) {
+          queens ++;
+          if(queens > 1){
+            return true;
+          }
+        }
+      }
       return false; // fixme
     },
 
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
+      /*
+      loop through n, which is the 'width'
+      if this board = 5 x 5, n = 5
+      this.get('n');  (for x = 0; x < this.get('n'), x++)
+      */
+      var width = this.get('n');
+      for(var i=0; i < width; i++){
+        if(this.hasColConflictAt(i)){
+          return true;
+        }
+      }
+
       return false; // fixme
     },
 
@@ -128,6 +156,8 @@
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
+
+
       return false; // fixme
     },
 
