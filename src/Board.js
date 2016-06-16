@@ -155,16 +155,55 @@
     // --------------------------------------------------------------
     //
     // test if a specific major diagonal on this board contains a conflict
-    hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
+    hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow, y) {
+      /*
+       down and right
 
-
+       loop through n (var i = 0; i < width (n) ; i++) --> loop through columns
+         i = x value = x, y = 0  <-- y always starts at 0 since its the first row
+         while (x value < (n - 1)) {  <-- are we at the right side edge
+          check this.rows()[y][x]  <-- is queen here
+          increment x++, y++
+         }
+      */
+      var width = this.get('n');
+      var rows = this.rows();
+      var queens = 0;
+      var x = majorDiagonalColumnIndexAtFirstRow;
+      var y = y;
+      while( x < width && y < width) {
+        if(rows[y][x]===1){
+          queens ++;
+          if(queens > 1){
+            return true;
+          }
+        }
+        x++;
+        y++;
+      }
       return false; // fixme
     },
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
+      var width = this.get('n');
+      for(var i=0; i < width; i++){
+        /* for y = 0; y < width; y++ */
+        for(var j=0; j< width; j++) {
+          if(this.hasMajorDiagonalConflictAt(i,j)){
+            return true;
+          }
+        }
+      }
       return false; // fixme
     },
+
+    /*
+
+
+
+
+    */
 
 
 
